@@ -85,7 +85,7 @@ def get_word_in_pic(pic_path):
 def get_cookies():
     cookies = {}
     with open('cookies.txt', "r", encoding='utf-8') as f_cookie:
-        douban_cookies = f_cookie.readlines()[0].split("; ")
+        douban_cookies = f_cookie.readlines()[0].strip().split("; ")
         for line in douban_cookies:
             key, value = line.split("=", 1)
             cookies[key] = value

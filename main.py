@@ -23,6 +23,7 @@ def reply_to_post(session, url, content):
     }
     print(reply_dict)
     session.post(reply_url, reply_dict)
+    # print('reply: ' + url)
     # print(r.text)
 
 
@@ -60,9 +61,6 @@ def main():
         'Accept-Language': 'en-US,en;q=0.5',
     })
     s.cookies.update(util.get_cookies())
-    # 启动循环
-    # 解析rss，寻找可以发的帖
-    # 发帖后记录，避免重复发帖
     # post_list = parse_weibo()
     # post_in_group(s, post_list[0]['title'], post_list[0]['content'])
     post_list = [
@@ -70,12 +68,10 @@ def main():
         'https://www.douban.com/group/topic/193452907/',
         'https://www.douban.com/group/topic/193452829/',
         'https://www.douban.com/group/topic/193453193/',
+        'https://www.douban.com/group/topic/193154210/'
     ]
     reply_content_list = ['UP!', 'UP', 'up', 'dd', 'DD', 'Up']
-    for i in post_list:
-        reply_to_post(s, i, choice(reply_content_list))
-        print('reply: ' + i)
-        time.sleep(60)
+    reply_to_post(s, choice(post_list), choice(reply_content_list))
 
     util.flush_cookies(s)
 
@@ -83,5 +79,5 @@ def main():
 if __name__ == '__main__':
     # main()
     sched = BlockingScheduler()
-    sched.add_job(main, 'cron', day='*', hour='*')
+    sched.add_job(main, 'interval', minutes=1, start_date='2020-9-12 21:00:00', end_date='2020-9-24 23:00:00')
     sched.start()
