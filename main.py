@@ -1,6 +1,6 @@
 import request_wrapper
 import util
-import time
+import os
 from random import choice
 # from rss_parser import parse_weibo
 from apscheduler.schedulers.blocking import BlockingScheduler
@@ -11,8 +11,13 @@ def reply_to_post(session, url, content):
     pic_url, pic_id = util.get_verify_code_pic(session, url)
     verify_code = ""
     if len(pic_url):
-        pic_path = util.save_pic_to_disk(pic_url, session)
-        verify_code = util.get_word_in_pic(pic_path)
+        retry_count = 0
+        while verify_code == '' and retry_count < 5:  # 识别不出的话重试
+            pic_path = util.save_pic_to_disk(pic_url, session)
+            verify_code = util.get_word_in_pic(pic_path)
+            os.remove(pic_path)
+            retry_count = retry_count + 1
+
     reply_dict = {
         "ck": util.get_form_ck_from_cookie(),
         'rv_comment': content,

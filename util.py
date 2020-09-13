@@ -68,7 +68,6 @@ def get_word_in_pic(pic_path):
     response = urllib.request.urlopen(request)
     content = response.read()
     f.close()
-    os.remove(pic_path)
     if content:
         print("baidu OCR API returns: " + str(content))
         content = json.loads(content)
