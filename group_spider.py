@@ -27,8 +27,8 @@ def get_group_members(group_id):
 
 def get_group_posts(group_id):
     post_list = []
-    start = 100
-    while start < 150:
+    start = 0
+    while start < 200:
         group_post_url = group_base_url + group_id + '/discussion?start=%d' % start
         doc = pq(group_post_url, headers=spider_header)
         start += 25
@@ -41,7 +41,7 @@ def get_group_posts(group_id):
             'time': i.siblings().eq(2).text()
         } for i in doc('td.title').items()]
         print('finish:' + group_post_url)
-        time.sleep(3)
+        time.sleep(2)
     return post_list
 
 
@@ -63,27 +63,27 @@ def get_comment(post_url):
 
 
 def get_user_posts():
-    with open('member-700330.txt', 'r', encoding='utf-8') as f:
+    with open('member-aiyue.txt', 'r', encoding='utf-8') as f:
         member_list = [i.strip() for i in f.readlines()]
-        posts = get_group_posts('692811')  # 692811,696121
+        posts = get_group_posts('689431')  # 另一个爱乐之程692811,小浪组696121,大浪组689431
         for p in posts:
             if p['author_link'] in member_list:
                 print('%s(%s): %s %s' % (p['author'], p['author_link'], p['title'], p['link']))
 
 
 def get_user_comments():
-    with open('member-700330.txt', 'r', encoding='utf-8') as f:
+    with open('member-aiyue.txt', 'r', encoding='utf-8') as f:
         member_list = [i.strip() for i in f.readlines()]
-        posts = get_group_posts('696121')  # 692811,696121
+        posts = get_group_posts('689431')  # 另一个爱乐之程692811,小浪组696121,大浪组689431
         for p in posts:
-            time.sleep(2)
+            time.sleep(1)
             print('finish post: ' + p['link'])
-            if int(p['reply_count']) < 100:
-                comments = get_comment(p['link'])
-                for c in comments:
-                    if c['user_link'] in member_list:
-                        print('%s(%s)' % (p['title'], p['link']))
-                        print('%s(%s): %s %s\n' % (c['username'], c['user_link'], c['content'], c['time']))
+            # if int(p['reply_count']) < 100:
+            comments = get_comment(p['link'])
+            for c in comments:
+                if c['user_link'] in member_list:
+                    print('%s(%s)' % (p['title'], p['link']))
+                    print('%s(%s): %s %s\n' % (c['username'], c['user_link'], c['content'], c['time']))
 
 
 if __name__ == '__main__':
