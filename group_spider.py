@@ -28,7 +28,7 @@ def get_group_members(group_id):
 def get_group_posts(group_id):
     post_list = []
     start = 0
-    while start < 200:
+    while start < 100:
         group_post_url = group_base_url + group_id + '/discussion?start=%d' % start
         doc = pq(group_post_url, headers=spider_header)
         start += 25
@@ -62,19 +62,23 @@ def get_comment(post_url):
     #     content = li('p.reply-content').text
 
 
+member_group_id = '700330'  # 696739
+search_group_id = '696121'  # 另一个爱乐之程692811,小浪组696121,大浪组689431
+
+
 def get_user_posts():
-    with open('member-aiyue.txt', 'r', encoding='utf-8') as f:
+    with open('member-%s.txt' % member_group_id, 'r', encoding='utf-8') as f:
         member_list = [i.strip() for i in f.readlines()]
-        posts = get_group_posts('689431')  # 另一个爱乐之程692811,小浪组696121,大浪组689431
+        posts = get_group_posts(search_group_id)
         for p in posts:
             if p['author_link'] in member_list:
                 print('%s(%s): %s %s' % (p['author'], p['author_link'], p['title'], p['link']))
 
 
 def get_user_comments():
-    with open('member-aiyue.txt', 'r', encoding='utf-8') as f:
+    with open('member-%s.txt' % member_group_id, 'r', encoding='utf-8') as f:
         member_list = [i.strip() for i in f.readlines()]
-        posts = get_group_posts('689431')  # 另一个爱乐之程692811,小浪组696121,大浪组689431
+        posts = get_group_posts(search_group_id)
         for p in posts:
             time.sleep(1)
             print('finish post: ' + p['link'])
