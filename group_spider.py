@@ -28,7 +28,7 @@ def get_group_members(group_id):
 def get_group_posts(group_id):
     post_list = []
     start = 0
-    while start < 100:
+    while start < 50:
         group_post_url = group_base_url + group_id + '/discussion?start=%d' % start
         doc = pq(group_post_url, headers=spider_header)
         start += 25

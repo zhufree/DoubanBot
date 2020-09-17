@@ -1,7 +1,9 @@
 import request_wrapper
 import util
 import os
+import time
 from random import choice
+from group_spider import get_group_posts
 # from rss_parser import parse_weibo
 from apscheduler.schedulers.blocking import BlockingScheduler
 
@@ -73,10 +75,13 @@ def main():
         'https://www.douban.com/group/topic/193452907/',
         'https://www.douban.com/group/topic/193452829/',
         'https://www.douban.com/group/topic/193453193/',
-        'https://www.douban.com/group/topic/193154210/'
+        # 'https://www.douban.com/group/topic/193154210/'
     ]
-    reply_content_list = ['UP!', 'UP', 'up', 'dd', 'DD', 'Up']
-    reply_to_post(s, choice(post_list), choice(reply_content_list))
+    group_posts_url = [p['link'] for p in get_group_posts('700330')]
+    post_index = [group_posts_url.index(p) for p in post_list]
+    up_post = group_posts_url[max(post_index)]
+    reply_content_list = ['UP!', '顶顶', 'up', 'dd', '你不能糊', 'Up', '给我上去', '绝绝绝']
+    reply_to_post(s, up_post, choice(reply_content_list) + ' by a bot at ' + time.asctime(time.localtime()))
 
     util.flush_cookies(s)
 
@@ -84,5 +89,5 @@ def main():
 if __name__ == '__main__':
     # main()
     sched = BlockingScheduler()
-    sched.add_job(main, 'interval', minutes=1, start_date='2020-9-12 21:00:00', end_date='2020-9-24 23:00:00')
+    sched.add_job(main, 'interval', hours=1, start_date='2020-9-12 21:00:00', end_date='2020-9-24 23:00:00')
     sched.start()
