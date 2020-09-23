@@ -6,6 +6,16 @@ from config import *
 import urllib
 import json
 import base64
+import time
+
+
+def if_time_in_hour(time_str):
+    t = time.mktime(time.strptime(time_str, '%Y-%m-%d %H:%M:%S'))  # struct 格式转时间戳
+    now = time.time()
+    if now - t < 3600:
+        return True
+    else:
+        return False
 
 
 def get_form_ck_from_cookie():
@@ -122,3 +132,7 @@ def save_pic_to_disk(pic_url, session):
             raise Exception
     except Exception as e:
         print(e)
+
+
+if __name__ == '__main__':
+    get_time()

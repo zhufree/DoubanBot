@@ -55,11 +55,6 @@ def get_comment(post_url):
         'content': li('p.reply-content').text()
     } for li in doc('ul#comments>li').items()]
     return reply_list
-    # for li in doc('ul#comments>li').items():
-    #     username = li('h4>a').text()
-    #     user_link = li('h4>a').attr('href')
-    #     time = li('h4>span').text()
-    #     content = li('p.reply-content').text
 
 
 member_group_id = '700330'  # 696739
@@ -88,10 +83,3 @@ def get_user_comments():
                 if c['user_link'] in member_list:
                     print('%s(%s)' % (p['title'], p['link']))
                     print('%s(%s): %s %s\n' % (c['username'], c['user_link'], c['content'], c['time']))
-
-
-if __name__ == '__main__':
-    # get_group_members('700330')
-    # get_comment('193686884')
-    get_user_comments()
-    # get_user_posts()

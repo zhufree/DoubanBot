@@ -1,0 +1,68 @@
+text_block = '''{
+            "key": "afdmm",
+            "text": "%s",
+            "type": "unstyled",
+            "depth": 0,
+            "inlineStyleRanges": [ ],
+            "entityRanges": [ ],
+            "data": {
+                "page": 0
+            }
+        }'''
+link_block = '''{
+            "key": "av2fd",
+            "text": "%s",
+            "type": "unstyled",
+            "depth": 0,
+            "inlineStyleRanges": [ ],
+            "entityRanges": [
+                {
+                    "offset": 0,
+                    "length": %d,
+                    "key": %d
+                }
+            ],
+            "data": {
+                "page": 0
+            }
+        }'''
+image_block = '''{
+            "key": "berit",
+            "text": " ",
+            "type": "atomic",
+            "depth": 0,
+            "inlineStyleRanges": [ ],
+            "entityRanges": [
+                {
+                    "offset": 0,
+                    "length": 1,
+                    "key": %d
+                }
+            ],
+            "data": {
+                "page": 0
+            }
+        }'''
+link_entity = '''"%d": {
+            "type": "LINK",
+            "mutability": "MUTABLE",
+            "data": {
+                "url": "%s"
+            }
+        }'''
+image_entity = '''"1": {
+            "type": "IMAGE",
+            "mutability": "IMMUTABLE",
+            "data": {
+                "width": 400,
+                "thumb": "https://img3.doubanio.com/view/group_topic/small/public/%s.jpg",
+                "file_size": 14849,
+                "url": "https://img3.doubanio.com/view/group_topic/l/public/%s.jpg",
+                "file_name": "%s",
+                "is_animated": false,
+                "id": "%d",
+                "height": 200,
+                "entityKey": "2",
+                "src": "https://img3.doubanio.com/view/group_topic/l/public/%s.jpg"
+            }
+        }'''
