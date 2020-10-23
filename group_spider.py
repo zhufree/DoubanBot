@@ -57,8 +57,21 @@ def get_comment(post_url):
     return reply_list
 
 
+def get_comment_user_list(post_url):
+    reply_list = get_comment(post_url)
+    user_list = []
+    for i in reply_list:
+        user_info = i['username'] + ':' + i['user_link']
+        if user_info not in user_list:
+            user_list.append(user_info)
+    for u in user_list:
+        print(u)
+
+
+
 member_group_id = '700330'  # 696739
-search_group_id = '696121'  # 另一个爱乐之程692811,小浪组696121,大浪组689431
+search_group_id = '707438'  # 另一个爱乐之程692811,小浪组696121,大浪组689431,qywy 707438
+# temp_user_list = ['https://www.douban.com/people/223053663/', 'https://www.douban.com/people/223430215/']
 
 
 def get_user_posts():
@@ -83,3 +96,10 @@ def get_user_comments():
                 if c['user_link'] in member_list:
                     print('%s(%s)' % (p['title'], p['link']))
                     print('%s(%s): %s %s\n' % (c['username'], c['user_link'], c['content'], c['time']))
+
+
+if __name__ == '__main__':
+    # get_user_posts()
+    # get_user_comments()
+    # get_group_posts(search_group_id)
+    get_comment_user_list('https://www.douban.com/group/topic/198348651/')

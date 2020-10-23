@@ -10,7 +10,7 @@ class DoubanGroupMemberSpider(scrapy.Spider):
     group_id = '700330'
     allowed_domains = ['douban.com']
     # start_urls = ['https://www.douban.com/group/696739/members?start=' + str(i) for i in range(0, 13377, 35)]
-    start_urls = ['https://www.douban.com/group/700330/members?start=' + str(i) for i in range(0, 5702, 35)]
+    start_urls = ['https://www.douban.com/group/700330/members?start=' + str(i) for i in range(0, 5892, 35)]
     member_name_list = []
     member_link_list = []
 
