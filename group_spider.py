@@ -70,7 +70,7 @@ def get_comment_user_list(post_url):
 
 
 member_group_id = '700330'  # 696739
-search_group_id = '707438'  # 另一个爱乐之程692811,小浪组696121,大浪组689431,qywy 707438
+search_group_id = '707438'  # 另一个爱乐之程692811,小浪组696121,大浪组689431
 # temp_user_list = ['https://www.douban.com/people/223053663/', 'https://www.douban.com/people/223430215/']
 
 
